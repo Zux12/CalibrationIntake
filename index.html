@@ -14,16 +14,19 @@
 </head>
 <body class="bg-gray-50 text-gray-900">
   <!-- Header -->
-  <header class="sticky top-0 z-20 bg-white/80 backdrop-blur border-b">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
-      <img src="logo.jpg" alt="Asianloop" class="h-10 w-auto object-contain" />
-      <div class="flex-1">
-        <h1 class="text-lg sm:text-xl font-semibold">Asianloop Lab — Calibration Intake</h1>
-        <p class="text-xs sm:text-sm text-gray-500">Fast, private, offline-first job intake for the calibration lab. Data is stored locally in your browser.</p>
-      </div>
+  <header class="sticky top-0 z-20 bg-white/90 backdrop-blur border-b">
+    <div class="max-w-6xl mx-auto px-4 py-2 sm:py-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
       <div class="flex items-center gap-2">
-        <button id="btnExportCSV" class="px-3 py-2 text-sm rounded-xl border bg-white hover:bg-gray-50">Export CSV</button>
-        <button id="btnClearAll" class="px-3 py-2 text-sm rounded-xl border bg-white hover:bg-gray-50">Clear All</button>
+        <img src="logo.jpg" alt="Asianloop" class="h-8 w-auto object-contain" />
+        <div>
+          <h1 class="text-base sm:text-lg font-semibold leading-tight">Asianloop Lab — Calibration Intake</h1>
+          <p class="hidden xs:block text-xs text-gray-500 leading-snug">Fast, private, offline‑first intake. Data is stored locally in your browser.</p>
+        </div>
+      </div>
+      <div class="flex-1"></div>
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="btnExportCSV" class="px-3 py-2 text-sm rounded-full border bg-white hover:bg-gray-50">Export CSV</button>
+        <button id="btnClearAll" class="px-3 py-2 text-sm rounded-full border bg-white hover:bg-gray-50">Clear All</button>
       </div>
     </div>
   </header>
