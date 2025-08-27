@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Asianloop Lab • Calibration Intake</title>
+  <link rel="icon" href="logo.jpg" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Prevent iOS zoom on inputs */
+    input, select, textarea { font-size: 16px; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <!-- Header -->
+  <header class="sticky top-0 z-20 bg-white/80 backdrop-blur border-b">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
+      <img src="logo.jpg" alt="Asianloop" class="h-10 w-auto object-contain" />
+      <div class="flex-1">
+        <h1 class="text-lg sm:text-xl font-semibold">Asianloop Lab — Calibration Intake</h1>
+        <p class="text-xs sm:text-sm text-gray-500">Fast, private, offline-first job intake for the calibration lab. Data is stored locally in your browser.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btnExportCSV" class="px-3 py-2 text-sm rounded-xl border bg-white hover:bg-gray-50">Export CSV</button>
+        <button id="btnClearAll" class="px-3 py-2 text-sm rounded-xl border bg-white hover:bg-gray-50">Clear All</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-6">
+    <!-- Tabs -->
+    <div class="mb-4 flex gap-2">
+      <button data-tab="intake" class="tab-btn px-3 py-2 rounded-xl text-sm bg-gray-900 text-white">New Intake</button>
+      <button data-tab="jobs" class="tab-btn px-3 py-2 rounded-xl text-sm border">Jobs</button>
+      <button data-tab="about" class="tab-btn px-3 py-2 rounded-xl text-sm border">Disclaimers</button>
+    </div>
+
+    <!-- Intake Form -->
+    <section id="tab-intake" class="tab-panel">
+      <form id="intakeForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="col-span-1 md:col-span-2">
+          <h2 class="text-base font-semibold">Client & Contact</h2>
+        </div>
+        <label class="block">
+          <span class="text-sm">Company</span>
+          <input name="company" required class="mt-1 w-full rounded-xl border px-3 py-2" placeholder="e.g. MRCSB" />
+        </label>
+        <label class="block">
+          <span class="text-sm">Contact Person</span>
+          <input name="contact" required class="mt-1 w-full rounded-xl border px-3 py-2" placeholder="Name" />
+        </label>
+        <label class="block">
+          <span class="text-sm">Email</span>
+          <input name="email" type="email" class="mt-1 w-full rounded-xl border px-3 py-2" placeholder="name@company.com" />
+        </label>
+        <label class="block">
+          <span class="text-sm">Phone</span>
+          <input name="phone" class="mt-1 w-full rounded-xl border px-3 py-2" placeholder="+60…" />
+        </label>
+
+        <div class="col-span-1 md:col-span-2 pt-2">
+          <h2 class="text-base font-semibold">Instrument Details</h2>
+        </div>
+        <label class="block">
+          <span class="text-sm">Asset Type</span>
+          <select name="assetType" required class="mt-1 w-full rounded-xl border px-3 py-2">
+            <option value="Flow Meter">Flow Meter</option>
+            <option value="Pressure Transmitter">Pressure Transmitter</option>
+            <option value="Temperature Sensor">Temperature Sensor</option>
+            <option value="Level Transmitter">Level Transmitter</option>
+            <option value="Analyzer">Analyzer</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label class="block">
+          <span class="text-sm">Manufacturer</span>
+          <input name="mfg" class="mt-1 w-full rounded-xl border px-3 py-2" placeholder="e.g. Micro Motion" />
+        </label>
+        <label class="block">
+          <span class="text-sm">Model</span>
+          <input name="model" class="mt-1 w-full rounded-xl border px-3 py-2" placeholder="e.g. CMF200" />
+        </label>
+        <label class="block">
+          <span class="text-sm">Serial / Tag</span>
+          <input name="serial" class="mt-1 w-full rounded-xl border px-3 py-2" placeholder="Serial or Tag No." />
+        </label>
+
+        <label class="block">
+          <span class="text-sm">Range</span>
+          <input name="range" class="mt-1 w-full rounded-xl border px-3 py-2" placeholder="e.g. 0–1000 kg/h" />
+        </label>
+        <label class="block">
+          <span class="text-sm">Process Fluid / Medium</span>
+          <input name="medium" class="mt-1 w-full rounded-xl border px-3 py-2" placeholder="e.g. Condensate" />
+        </label>
+        <label class="block">
+          <span class="text-sm">Required Standard</span>
+          <select name="standard" class="mt-1 w-full rounded-xl border px-3 py-2">
+            <option value="API">API</option>
+            <option value="ISO">ISO</option>
+            <option value="OIML">OIML</option>
+            <option value="MS (Jabatan Timbang & Sukat)">MS (Jabatan Timbang & Sukat)</option>
+          </select>
+        </label>
+        <label class="block">
+          <span class="text-sm">Priority</span>
+          <select name="priority" class="mt-1 w-full rounded-xl border px-3 py-2">
+            <option>Normal</option>
+            <option>Urgent</option>
+            <option>Critical</option>
+          </select>
+        </label>
+
+        <label class="block md:col-span-2">
+          <span class="text-sm">Special Instructions</span>
+          <textarea name="notes" rows="3" class="mt-1 w-full rounded-xl border px-3 py-2" placeholder="Calibration scope, environmental conditions, accessories provided, etc."></textarea>
+        </label>
+
+        <div class="md:col-span-2 flex items-center gap-2 pt-1">
+          <button class="px-4 py-2 rounded-xl bg-gray-900 text-white hover:bg-black" type="submit">Create Job</button>
+          <span id="saveHint" class="text-sm text-gray-500">Autosaves to your browser (localStorage).</span>
+        </div>
+      </form>
+    </section>
+
+    <!-- Jobs Table -->
+    <section id="tab-jobs" class="tab-panel hidden">
+      <div class="flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between mb-3">
+        <div class="flex gap-2">
+          <input id="search" placeholder="Search…" class="w-full sm:w-64 rounded-xl border px-3 py-2" />
+          <select id="statusFilter" class="rounded-xl border px-3 py-2">
+            <option value="">All Status</option>
+            <option>New</option>
+            <option>In-Progress</option>
+            <option>Calibrated</option>
+            <option>Certified</option>
+            <option>Delivered</option>
+          </select>
+        </div>
+        <div class="text-sm text-gray-500" id="summary"></div>
+      </div>
+
+      <div class="overflow-x-auto bg-white rounded-2xl shadow-sm border">
+        <table class="min-w-full text-sm" id="jobsTable">
+          <thead class="bg-gray-100 text-gray-600">
+            <tr>
+              <th class="text-left p-3">Job ID</th>
+              <th class="text-left p-3">Company</th>
+              <th class="text-left p-3">Asset</th>
+              <th class="text-left p-3">Model</th>
+              <th class="text-left p-3">Serial/Tag</th>
+              <th class="text-left p-3">Standard</th>
+              <th class="text-left p-3">Priority</th>
+              <th class="text-left p-3">Status</th>
+              <th class="text-left p-3">Created</th>
+              <th class="text-left p-3">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="jobsBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Disclaimers / Notes -->
+    <section id="tab-about" class="tab-panel hidden">
+      <div class="bg-white rounded-2xl p-5 shadow-sm border space-y-4">
+        <h2 class="text-base font-semibold">Disclaimers & Notes</h2>
+        <ul class="list-disc pl-5 text-sm space-y-2">
+          <li>Privacy: This app runs entirely in your browser. No data is uploaded to any server. Records are stored in <em>localStorage</em>.</li>
+          <li>Operational Use: This is an intake and tracking tool to assist Asianloop Lab workflow; it is not a replacement for the LIMS or formal certificate issuance system.</li>
+          <li>Standards: Where applicable, calibrations shall comply with API/ISO/OIML and Malaysian standards (Jabatan Timbang & Sukat). For export/import of instruments, users should ensure relevant Customs and MITI requirements are met.</li>
+          <li>Accuracy: Always verify entries before acting. For regulated measurements, refer to the latest approved procedures and standards.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-4 pb-10 text-xs text-gray-500">
+    <div class="mt-6">© <span id="year"></span> Asianloop. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // ---- Utilities ----
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+    const STORAGE_KEY = 'asianloop_cal_jobs_v1';
+
+    function uid() {
+      const d = new Date();
+      const n = Math.random().toString(36).slice(2, 6).toUpperCase();
+      return 'AL-' + d.getFullYear().toString().slice(-2) + (d.getMonth()+1).toString().padStart(2,'0') + d.getDate().toString().padStart(2,'0') + '-' + n;
+    }
+
+    function loadJobs() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
+    }
+    function saveJobs(list) { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
+
+    // ---- Tabs ----
+    $$(".tab-btn").forEach(btn => btn.addEventListener('click', () => {
+      $$(".tab-btn").forEach(b => b.classList.remove('bg-gray-900','text-white'));
+      btn.classList.add('bg-gray-900','text-white');
+      const name = btn.dataset.tab;
+      $$(".tab-panel").forEach(p => p.classList.add('hidden'));
+      $('#tab-'+name).classList.remove('hidden');
+    }));
+
+    // ---- Intake Form ----
+    $('#intakeForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const job = Object.fromEntries(fd.entries());
+      job.id = uid();
+      job.status = 'New';
+      job.createdAt = new Date().toISOString();
+
+      const list = loadJobs();
+      list.unshift(job);
+      saveJobs(list);
+      e.target.reset();
+      renderJobs();
+      // Switch to Jobs tab
+      document.querySelector('[data-tab="jobs"]').click();
+    });
+
+    // ---- Jobs Table ----
+    function renderJobs() {
+      const q = $('#search').value.trim().toLowerCase();
+      const f = $('#statusFilter').value;
+      const body = $('#jobsBody');
+      body.innerHTML = '';
+
+      const list = loadJobs();
+      const filtered = list.filter(j => {
+        const matchesStatus = !f || j.status === f;
+        const matchesText = !q || Object.values(j).some(v => String(v||'').toLowerCase().includes(q));
+        return matchesStatus && matchesText;
+      });
+
+      filtered.forEach(j => {
+        const tr = document.createElement('tr');
+        tr.className = 'border-t';
+        tr.innerHTML = `
+          <td class="p-3 font-mono">${j.id}</td>
+          <td class="p-3">${j.company||''}</td>
+          <td class="p-3">${j.assetType||''}</td>
+          <td class="p-3">${j.model||''}</td>
+          <td class="p-3">${j.serial||''}</td>
+          <td class="p-3">${j.standard||''}</td>
+          <td class="p-3">${j.priority||''}</td>
+          <td class="p-3">
+            <select data-id="${j.id}" class="statusSel rounded-lg border px-2 py-1">
+              ${['New','In-Progress','Calibrated','Certified','Delivered'].map(s => `<option ${j.status===s?'selected':''}>${s}</option>`).join('')}
+            </select>
+          </td>
+          <td class="p-3">${new Date(j.createdAt).toLocaleString()}</td>
+          <td class="p-3">
+            <button data-id="${j.id}" class="btnView text-blue-600 hover:underline">View</button>
+            <span class="mx-1">·</span>
+            <button data-id="${j.id}" class="btnDelete text-red-600 hover:underline">Delete</button>
+          </td>`;
+        body.appendChild(tr);
+      });
+
+      $('#summary').textContent = `${filtered.length} of ${loadJobs().length} jobs shown`;
+
+      // Wire events
+      $$('.statusSel').forEach(sel => sel.addEventListener('change', (e) => {
+        const id = e.target.dataset.id;
+        const list = loadJobs();
+        const idx = list.findIndex(x => x.id === id);
+        if (idx > -1) {
+          list[idx].status = e.target.value;
+          saveJobs(list);
+        }
+      }));
+      $$('.btnDelete').forEach(btn => btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        const list = loadJobs().filter(x => x.id !== id);
+        saveJobs(list);
+        renderJobs();
+      }));
+      $$('.btnView').forEach(btn => btn.addEventListener('click', () => showJob(btn.dataset.id)));
+    }
+
+    $('#search').addEventListener('input', renderJobs);
+    $('#statusFilter').addEventListener('change', renderJobs);
+
+    function showJob(id) {
+      const j = loadJobs().find(x => x.id === id);
+      if (!j) return;
+      const detail = `\nJob ID: ${j.id}\nCompany: ${j.company}\nContact: ${j.contact} (${j.email}, ${j.phone})\nAsset: ${j.assetType}\nManufacturer: ${j.mfg}\nModel: ${j.model}\nSerial/Tag: ${j.serial}\nRange: ${j.range}\nMedium: ${j.medium}\nStandard: ${j.standard}\nPriority: ${j.priority}\nStatus: ${j.status}\nNotes: ${j.notes || '-'}\nCreated: ${new Date(j.createdAt).toLocaleString()}\n`;
+      alert(detail);
+    }
+
+    // ---- Export CSV ----
+    function toCSV(rows) {
+      if (!rows.length) return '';
+      const headers = Object.keys(rows[0]);
+      const escape = (v) => '"' + String(v ?? '').replaceAll('"','""') + '"';
+      const lines = [headers.map(escape).join(',')];
+      for (const r of rows) lines.push(headers.map(h => escape(r[h])).join(','));
+      return lines.join('\n');
+    }
+    $('#btnExportCSV').addEventListener('click', () => {
+      const rows = loadJobs();
+      const csv = toCSV(rows);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'asianloop-calibration-jobs.csv';
+      a.click();
+    });
+
+    // ---- Clear All ----
+    $('#btnClearAll').addEventListener('click', () => {
+      if (confirm('Delete ALL jobs stored in this browser?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        renderJobs();
+      }
+    });
+
+    // Init
+    document.getElementById('year').textContent = new Date().getFullYear();
+    renderJobs();
+  </script>
+</body>
+</html>
